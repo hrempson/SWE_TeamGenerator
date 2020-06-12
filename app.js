@@ -33,10 +33,8 @@ const employeeQuestions = [{
         name: "role"
     }
 ];
-inquirer.prompt(employeeQuestions).then((response) => {
-    askForEmployeeRole();
-    console.log(response);
-});
+    
+askForEmployeeRole();
 
 function askForEmployeeRole() {
 
@@ -73,7 +71,7 @@ function askForEmployeeRole() {
 
         inquirer
             .prompt([
-                // ...employeeQuestions,
+                ...employeeQuestions,
                 {
                     type: "input",
                     message: "What is the employees phone number?",
@@ -149,13 +147,14 @@ function askForEmployeeRole() {
                     } else {
                         console.log("Team Built!");
                         console.log(employees);
+                        createHtmlFile();
                     }})
     }
 }
 
 function createHtmlFile() {
     const html = render(employees);
-    if (! fs.existSync(OUTPUT_DIR))
+    if (! fs.existsSync(OUTPUT_DIR))
         fs.mkdirSync(OUTPUT_DIR);
 
     fs.writeFile(outputPath, html, (err) => {
